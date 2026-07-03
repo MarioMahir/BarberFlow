@@ -1,0 +1,84 @@
+@model BarberFlow.Web.Models.AppointmentIndexViewModel
+@using BarberFlow.Web.Extensions
+
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Appointments</h1>
+    <a asp-action="Create" class="btn btn-primary">+ New appointment</a>
+</div>
+
+@if (TempData["Error"] is string error)
+{
+    <div class="alert alert-danger">@error</div>
+}
+
+<form asp-action="Index" method="get" class="row g-2 mb-3 align-items-end">
+    <div class="col-auto">
+        <label asp-for="BarberId" class="form-label"></label>
+        <select asp-for="BarberId" asp-items="Model.Barbers" class="form-control">
+            <option value="">All barbers</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<BarberFlow.Web.Models.Entities.AppointmentStatus>()" class="form-control">
+            <option value="">All statuses</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <label asp-for="Date" class="form-label"></label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+    </div>
+</form>
+
+@if (!Model.Appointments.Any())
+{
+    <p class="text-muted">No appointments match these filters.</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Barber</th>
+                        <th>Service</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+@foreach (var item in Model.Appointments) {
+                    <tr>
+                        <td>@item.Client.FirstName @item.Client.LastName</td>
+                        <td>@item.Barber.FirstName @item.Barber.LastName</td>
+                        <td>@item.Service.Name</td>
+                        <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+                        <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
+                        <td><span class="badge @item.Status.BadgeClass()">@item.Status</span></td>
+                        <td class="text-end">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Details</a>
+                            @if (item.Status == BarberFlow.Web.Models.Entities.AppointmentStatus.Scheduled)
+                            {
+                                <a asp-action="Cancel" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Cancel</a>
+                            }
+                        </td>
+                    </tr>
+}
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

@@ -1,0 +1,50 @@
+@model BarberFlow.Web.Models.ConfirmBookingViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Confirm your booking";
+    var displayDate = DateOnly.ParseExact(Model.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+}
+
+<h1>Confirm your booking</h1>
+<p class="text-muted">
+    @Model.ServiceName with @Model.BarberName<br />
+    @displayDate.ToString("dddd, MMM d") at @Model.Time
+</p>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Confirm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ServiceId" />
+            <input type="hidden" asp-for="BarberId" />
+            <input type="hidden" asp-for="Date" />
+            <input type="hidden" asp-for="Time" />
+            <input type="hidden" asp-for="ServiceName" />
+            <input type="hidden" asp-for="BarberName" />
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Confirm booking" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

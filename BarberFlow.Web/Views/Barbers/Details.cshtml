@@ -1,0 +1,28 @@
+@model BarberFlow.Web.Models.Entities.Barber
+
+@{
+    ViewData["Title"] = "Barber details";
+}
+
+<h1>Barber details</h1>
+
+<div class="card" style="max-width: 40rem;">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FirstName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.FirstName)</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LastName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.LastName)</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-secondary">Edit</a>
+    <a asp-controller="BarberWorkingHours" asp-action="Index" asp-route-barberId="@Model?.Id" class="btn btn-outline-secondary">Working hours</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Back to list</a>
+</div>

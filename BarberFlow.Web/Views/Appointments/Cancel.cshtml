@@ -1,0 +1,30 @@
+@model BarberFlow.Web.Models.Entities.Appointment
+
+@{
+    ViewData["Title"] = "Cancel appointment";
+}
+
+<h1>Cancel appointment</h1>
+
+<p>Are you sure you want to cancel this appointment?</p>
+
+<div class="card" style="max-width: 40rem;">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Client</dt>
+            <dd class="col-sm-9">@Model.Client.FirstName @Model.Client.LastName</dd>
+            <dt class="col-sm-3">Barber</dt>
+            <dd class="col-sm-9">@Model.Barber.FirstName @Model.Barber.LastName</dd>
+            <dt class="col-sm-3">Service</dt>
+            <dd class="col-sm-9">@Model.Service.Name</dd>
+            <dt class="col-sm-3">Start</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.StartTime)</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Cancel" class="mt-3">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Cancel appointment" class="btn btn-danger" />
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Back</a>
+</form>

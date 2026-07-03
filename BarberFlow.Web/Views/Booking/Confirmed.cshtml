@@ -1,0 +1,18 @@
+@model BarberFlow.Web.Models.Entities.Appointment
+@{
+    ViewData["Title"] = "Booking confirmed";
+}
+
+<h1>You're booked!</h1>
+
+<div class="card" style="max-width: 28rem;">
+    <div class="card-body">
+        <p class="mb-1"><strong>@Model.Client.FirstName @Model.Client.LastName</strong></p>
+        <p class="mb-1">@Model.Service.Name with @Model.Barber.FirstName @Model.Barber.LastName</p>
+        <p class="mb-0">@Model.StartTime.ToString("dddd, MMM d 'at' HH:mm")</p>
+    </div>
+</div>
+
+<p class="mt-3">
+    <a asp-action="Index">Book another appointment</a>
+</p>

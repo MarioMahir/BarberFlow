@@ -1,0 +1,33 @@
+@model IEnumerable<BarberFlow.Web.Models.Entities.Service>
+@{
+    ViewData["Title"] = "Book an appointment";
+}
+
+<h1>Book an appointment</h1>
+<p class="text-muted">Choose a service to get started.</p>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No services are available for booking right now.</p>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var service in Model)
+        {
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@service.Name</h5>
+                        <p class="card-text text-muted">@service.DurationMinutes min &middot; $@service.Price.ToString("0.00")</p>
+                        @if (!string.IsNullOrEmpty(service.Description))
+                        {
+                            <p class="card-text">@service.Description</p>
+                        }
+                        <a class="btn btn-primary" asp-action="SelectBarber" asp-route-serviceId="@service.Id">Choose</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,108 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* ---- BarberFlow brand theme ---- */
+
+:root {
+  --bf-primary: #8b5e34;
+  --bf-primary-rgb: 139, 94, 52;
+  --bf-primary-dark: #6f4a29;
+  --bf-dark: #262220;
+
+  --bs-primary: var(--bf-primary);
+  --bs-primary-rgb: var(--bf-primary-rgb);
+  --bs-link-color: var(--bf-primary);
+  --bs-link-color-rgb: var(--bf-primary-rgb);
+  --bs-link-hover-color: var(--bf-primary-dark);
+  --bs-link-hover-color-rgb: 111, 74, 41;
+}
+
+/* Bootstrap 5.3 bakes button colors into per-component variables rather than
+   the root --bs-primary token, so .btn-primary/.btn-outline-primary need
+   their own overrides for the brand color to actually apply. */
+.btn-primary {
+  --bs-btn-bg: var(--bf-primary);
+  --bs-btn-border-color: var(--bf-primary);
+  --bs-btn-hover-bg: var(--bf-primary-dark);
+  --bs-btn-hover-border-color: var(--bf-primary-dark);
+  --bs-btn-active-bg: var(--bf-primary-dark);
+  --bs-btn-active-border-color: var(--bf-primary-dark);
+  --bs-btn-disabled-bg: var(--bf-primary);
+  --bs-btn-disabled-border-color: var(--bf-primary);
+  --bs-btn-focus-shadow-rgb: var(--bf-primary-rgb);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--bf-primary);
+  --bs-btn-border-color: var(--bf-primary);
+  --bs-btn-hover-bg: var(--bf-primary);
+  --bs-btn-hover-border-color: var(--bf-primary);
+  --bs-btn-active-bg: var(--bf-primary);
+  --bs-btn-active-border-color: var(--bf-primary);
+  --bs-btn-disabled-color: var(--bf-primary);
+  --bs-btn-disabled-border-color: var(--bf-primary);
+  --bs-btn-focus-shadow-rgb: var(--bf-primary-rgb);
+}
+
+.bg-brand-dark {
+  background-color: var(--bf-dark) !important;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.nav-link.active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+h1, .h1 {
+  font-weight: 600;
+}
+
+h4, .h4 {
+  font-weight: 600;
+}
+
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card .table {
+  margin-bottom: 0;
+}

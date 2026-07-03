@@ -1,0 +1,39 @@
+@model BarberFlow.Web.Models.Entities.BarberWorkingHour
+@{
+    var barber = (BarberFlow.Web.Models.Entities.Barber)ViewData["Barber"]!;
+    ViewData["Title"] = "Add Working Hours";
+}
+
+<h1>Add working hours</h1>
+<p class="text-muted">@barber.FirstName @barber.LastName</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="BarberId" />
+                    <div class="form-group">
+                        <label asp-for="DayOfWeek" class="control-label"></label>
+                        <select asp-for="DayOfWeek" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartTime" class="control-label"></label>
+                        <input asp-for="StartTime" type="time" class="form-control" />
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndTime" class="control-label"></label>
+                        <input asp-for="EndTime" type="time" class="form-control" />
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-0">
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                        <a asp-action="Index" asp-route-barberId="@barber.Id" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

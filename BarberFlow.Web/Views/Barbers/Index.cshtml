@@ -1,0 +1,48 @@
+@model IEnumerable<BarberFlow.Web.Models.Entities.Barber>
+
+@{
+    ViewData["Title"] = "Barbers";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Barbers</h1>
+    <a asp-action="Create" class="btn btn-primary">+ New barber</a>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No barbers yet.</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                        <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+@foreach (var item in Model) {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                        <td class="text-end">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+}
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

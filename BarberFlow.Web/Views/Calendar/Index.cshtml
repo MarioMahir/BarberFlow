@@ -1,0 +1,87 @@
+@model BarberFlow.Web.Models.CalendarViewModel
+@using BarberFlow.Web.Extensions
+
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<h1>Calendar</h1>
+
+@if (!Model.Barbers.Any())
+{
+    <p class="text-muted">No barbers configured yet.</p>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <form asp-action="Index" method="get" class="d-flex align-items-center gap-2">
+            <input type="hidden" name="weekStart" value="@Model.WeekStart.ToString("yyyy-MM-dd")" />
+            <label for="barberId" class="form-label mb-0">Barber</label>
+            <select id="barberId" name="barberId" class="form-control" onchange="this.form.submit()">
+                @foreach (var barber in Model.Barbers)
+                {
+                    @if (barber.Id == Model.BarberId)
+                    {
+                        <option value="@barber.Id" selected="selected">@barber.FirstName @barber.LastName</option>
+                    }
+                    else
+                    {
+                        <option value="@barber.Id">@barber.FirstName @barber.LastName</option>
+                    }
+                }
+            </select>
+        </form>
+        <div class="btn-group">
+            <a class="btn btn-outline-secondary" asp-action="Index" asp-route-barberId="@Model.BarberId" asp-route-weekStart="@Model.WeekStart.AddDays(-7).ToString("yyyy-MM-dd")">&laquo; Previous</a>
+            <a class="btn btn-outline-secondary" asp-action="Index" asp-route-barberId="@Model.BarberId">Today</a>
+            <a class="btn btn-outline-secondary" asp-action="Index" asp-route-barberId="@Model.BarberId" asp-route-weekStart="@Model.WeekStart.AddDays(7).ToString("yyyy-MM-dd")">Next &raquo;</a>
+        </div>
+    </div>
+
+    <p class="text-muted">Week of @Model.WeekStart.ToString("MMM d, yyyy")</p>
+
+    @if (!Model.TimeSlots.Any())
+    {
+        <p class="text-muted">This barber has no working hours configured.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th style="width:80px;"></th>
+                        @foreach (var day in Model.Days)
+                        {
+                            <th>@day.Date.ToString("ddd")<br />@day.Date.ToString("MMM d")</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var slot in Model.TimeSlots)
+                    {
+                        <tr>
+                            <th class="text-muted fw-normal">@slot.ToString("HH:mm")</th>
+                            @foreach (var day in Model.Days)
+                            {
+                                <td>
+                                    @if (day.AppointmentsBySlot.TryGetValue(slot, out var appts))
+                                    {
+                                        @foreach (var appt in appts)
+                                        {
+                                            <a class="badge @appt.Status.BadgeClass() d-block mb-1 text-decoration-none text-wrap text-start"
+                                               asp-controller="Appointments" asp-action="Details" asp-route-id="@appt.Id">
+                                                @appt.StartTime.ToString("HH:mm")-@appt.EndTime.ToString("HH:mm")<br />
+                                                @appt.Client.FirstName @appt.Client.LastName - @appt.Service.Name
+                                            </a>
+                                        }
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
