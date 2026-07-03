@@ -141,7 +141,7 @@ dotnet test
 
 ## Licencia
 
-Todavía no se ha elegido una licencia para este proyecto.
+Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
 
 ## Contribuir
 

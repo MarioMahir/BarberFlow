@@ -141,7 +141,7 @@ dotnet test
 
 ## License
 
-No license has been chosen for this project yet.
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contributing
 
